@@ -1,4 +1,4 @@
-package com.acme.data;
+package com.acme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
