@@ -4,37 +4,48 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import com.acme.order.customer.Customer;
 import com.acme.order.OrderStatus;
+import com.acme.order.customer.Customer;
 
 @Data
+@NoArgsConstructor
 @Entity
+@Table(name = "order_t")
 public class PizzaOrder {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	@Column
-	private PizzaType pizzaType;
+	@Enumerated(EnumType.STRING)
+	private PizzaType type;
 	@Column
-	private OrderStatus state;
-	@Column
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
+	@Column(name = "estimatedDeliveryTime")
 	private Date estimatedDeliveryTime;
-	@Column
+	@Column(name = "finishTime")
 	private Date finishTime;
 
-	public PizzaOrder(Customer customer, PizzaType pizzaType) {
-		this.state = OrderStatus.CREATED;
+	public PizzaOrder(Customer customer, PizzaType type) {
+		this.status = OrderStatus.CREATED;
 		this.customer = customer;
-		this.pizzaType = pizzaType;
+		this.type = type;
 	}
 
 	public void withEstimatedTime(Date date) {
@@ -46,19 +57,19 @@ public class PizzaOrder {
 	}
 
 	public void cancel() {
-		this.state = OrderStatus.CANCELLED;
+		this.status = OrderStatus.CANCELLED;
 	}
 
 	public boolean isCreated() {
-		return this.state == OrderStatus.CREATED;
+		return this.status == OrderStatus.CREATED;
 	}
 
 	public boolean isCancelled() {
-		return this.state == OrderStatus.CANCELLED;
+		return this.status == OrderStatus.CANCELLED;
 	}
 
 	public boolean isDelivered() {
-		return this.state == OrderStatus.DELIVERED;
+		return this.status == OrderStatus.DELIVERED;
 	}
 
 	public String getEmail() {
@@ -70,7 +81,7 @@ public class PizzaOrder {
 	}
 
 	public void deliver() {
-		this.state = OrderStatus.DELIVERED;
+		this.status = OrderStatus.DELIVERED;
 		finishTime = new Date();
 	}
 
@@ -78,14 +89,14 @@ public class PizzaOrder {
 		if (estimatedDeliveryTime == null) {
 			return true;
 		}
-		if (state == OrderStatus.DELIVERED) {
+		if (status == OrderStatus.DELIVERED) {
 			return estimatedDeliveryTime.after(finishTime);
 		}
 		throw new IllegalStateException("The Pizza is not delivered yet!");
 	}
 
-	public PizzaType getPizzaType() {
-		return pizzaType;
+	public PizzaType getType() {
+		return type;
 	}
 
 }
