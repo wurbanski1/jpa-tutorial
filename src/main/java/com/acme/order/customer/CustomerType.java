@@ -21,4 +21,6 @@ public class CustomerType {
 	private Long id;
 	@Column
 	private String name;
+	
+
 }

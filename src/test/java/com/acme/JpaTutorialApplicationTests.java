@@ -42,6 +42,17 @@ public class JpaTutorialApplicationTests {
 		
 	}
 	
+	@Test
+	public void findIndividualsTest() {
+		givenIndividualCustomer();
+		
+	}
+	
+	private void givenIndividualCustomer() {
+		CustomerType cType = new CustomerType();
+		customer1 = new Customer(null, "John", "@wp.pl", "lodz", cType);
+	}
+	
 //	@Test
 //	public void dataLoad() {
 //		customer1 = new Customer(null, "John Smith", "john@smith.com", "Lodz, Jaracza 74");
