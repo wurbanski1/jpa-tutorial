@@ -31,13 +31,13 @@ public class JpaTutorialApplicationTests {
 	@Test
 	public void contextLoads() {
 		
-		customer1 = new Customer(null, "John Smith", "john@smith.com", "Lodz, Jaracza 74", new CustomerType());
-		customer2 = new Customer(null, "Jan Kowalski", "jan@kowalski.pl", "Lodz, Piotrkowska 100", new CustomerType());
-		
-		customerRepository.save(Lists.newArrayList(customer1, customer2));
-		
-		pizzaOrderService.createOrder(customer1, PizzaType.BIG);
-		pizzaOrderService.createOrder(customer2, PizzaType.BIG);
+//		customer1 = new Customer(null, "John Smith", "john@smith.com", "Lodz, Jaracza 74");
+//		customer2 = new Customer(null, "Jan Kowalski", "jan@kowalski.pl", "Lodz, Piotrkowska 100");
+//		
+//		customerRepository.save(Lists.newArrayList(customer1, customer2));
+//		
+//		pizzaOrderService.createOrder(customer1, PizzaType.BIG);
+//		pizzaOrderService.createOrder(customer2, PizzaType.BIG);
 		
 		
 	}

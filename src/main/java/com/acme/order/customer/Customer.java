@@ -30,5 +30,5 @@ public class Customer {
 	private String address;
 	@ManyToOne
 	@JoinColumn(name="customer_type_id")
-	private CustomerType CustomerType;
+	private CustomerType customerType;
 }
